@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<opencv_storage>
+<DynfuConfigure>
+  <!--rx>0.2</rx-->
+  <rx>0.4</rx>
+  <ry>0</ry>
+  <rz>0</rz>
+  <tx>-0.25</tx>
+  <ty>-0.25</ty>
+  <tz>0.2</tz>
+  <!--trunc_dist>0.015</trunc_dist-->
+  <trunc_dist>0.01</trunc_dist>
+  <volume_length>0.5</volume_length>
+  <voxel_block_inner_dim_shift>3</voxel_block_inner_dim_shift>
+  <voxel_block_dim_shift>6</voxel_block_dim_shift>
+  <node_block_dim_shift_base>5</node_block_dim_shift_base>
+  <!--depth_min>0.5</depth_min-->
+  <!--depth_max>1.3</depth_max-->
+  <depth_min>0.0</depth_min>
+  <depth_max>1.6</depth_max>
+  <!--h_min>180</h_min-->
+  <!--h_max>210</h_max-->
+  <!--h_min>70</h_min-->
+  <!--h_max>210</h_max-->
+  <h_min>10</h_min>
+  <h_max>360</h_max>
+  <!--s_min>0.8</s_min-->
+  <!--s_max>1.1</s_max-->
+  <s_min>0.01</s_min>
+  <s_max>0.4</s_max>
+  <dist_thres>0.008</dist_thres>
+  <angle_thres>0.96</angle_thres>
+  <view_angle_thres>1.57</view_angle_thres>
+  <!--dist_thres>0.005</dist_thres-->
+  <!--angle_thres>0.79</angle_thres-->
+  <!--view_angle_thres>1.41</view_angle_thres-->
+  <width>640</width>
+  <height>480</height>
+  <cx>320</cx>
+  <cy>240</cy>
+  <fx>570.342</fx>
+  <fy>570.342</fy>
+  <depth_scale>0.0012</depth_scale>
+  <w_fit>1</w_fit>
+  <w_fit_huber>0.004</w_fit_huber>
+  <!--w_reg>0.8</w_reg-->
+  <w_reg>1.3</w_reg>
+  <w_reg_huber>0.03</w_reg_huber>
+  <icp_iters>6</icp_iters>
+  <lm_iters>5</lm_iters>
+  <lm_damping>10</lm_damping>
+  <lm_alpha>0.5</lm_alpha>
+  <lm_beta>2.5</lm_beta>
+  <draw_mesh_win1>1</draw_mesh_win1>
+  <draw_tex_win0>1</draw_tex_win0>
+</DynfuConfigure>
+</opencv_storage>
