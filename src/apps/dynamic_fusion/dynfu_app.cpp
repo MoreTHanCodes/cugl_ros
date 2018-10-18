@@ -535,7 +535,8 @@ bool DynfuApp::initGL(int *argc, char **argv)
   }
 
   // init window background
-  glClearColor(0.f, 0.f, 0.f, 1.f);
+  // glClearColor(0.f, 0.f, 0.f, 1.f);
+  glClearColor(0.1f, 0.2f, 0.3f, 1.f);
 
   if (!compileASMShader(GL_FRAGMENT_PROGRAM_ARB, glsl_shader_code))
   {
@@ -561,7 +562,8 @@ bool DynfuApp::initGL(int *argc, char **argv)
   if (configure_.draw_mesh_win1)
   {
     // init window background
-    glClearColor(0.f, 0.f, 0.f, 1.f);
+    // glClearColor(0.f, 0.f, 0.f, 1.f);
+    glClearColor(0.1f, 0.2f, 0.3f, 1.f);
 
     // Register callbacks
     glutDisplayFunc(displayWrapper);
@@ -580,7 +582,8 @@ bool DynfuApp::initGL(int *argc, char **argv)
   if (configure_.draw_tex_win0)
   {
     // init window background
-    glClearColor(0.f, 0.f, 0.f, 1.f);
+    // glClearColor(0.f, 0.f, 0.f, 1.f);
+    glClearColor(0.1f, 0.2f, 0.3f, 1.f);
 
     // Register callbacks
     glutDisplayFunc(displayWrapper);
@@ -845,14 +848,14 @@ void DynfuApp::runPipelineOnce()
       case (TRACKING_AND_FUSION):
         trackRigidMotion();
         frame_count_++;
-        trackNonRigidMotion();
+        // trackNonRigidMotion();
         fuseVolume();
         break;
 
       case (TRACKING_ONLY):
         trackRigidMotion();
         frame_count_++;
-        trackNonRigidMotion();
+        // trackNonRigidMotion();
         break;
     }
 
@@ -1336,7 +1339,8 @@ void DynfuApp::renderMeshWin0()
     mesh0_color_array_.unmap();
 
     // clear information from the last draw
-    glClearColor(0.f, 0.f, 0.f, 1.f);
+    // glClearColor(0.f, 0.f, 0.f, 1.f);
+    glClearColor(0.1f, 0.2f, 0.3f, 1.f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // move light with camera
@@ -1347,7 +1351,8 @@ void DynfuApp::renderMeshWin0()
     float ambient[]   = { 0.1f, 0.1f, 0.1f, 1.0f };
     float diffuse[]   = { 0.6f, 0.6f, 0.6f, 1.0f };
     float specular[]  = { 0.2f, 0.2f, 0.2f, 1.0f };
-    float light_pos[] = { 0.3f, 0.5f, -0.8f, 0.0f };
+    // float light_pos[] = { 0.3f, 0.5f, -0.8f, 0.0f };
+    float light_pos[] = { 0.0f, 0.0f, 1.8f, 0.0f };
     glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
     glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
@@ -1419,7 +1424,8 @@ void DynfuApp::renderMeshWin0()
   else
   {
     // clear information from the last draw
-    glClearColor(0.f, 0.f, 0.f, 1.f);
+    // glClearColor(0.f, 0.f, 0.f, 1.f);
+    glClearColor(0.1f, 0.2f, 0.3f, 1.f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glutSwapBuffers();
@@ -1467,7 +1473,8 @@ void DynfuApp::renderMeshWin1()
       mesh1_color_array_.unmap();
 
       // clear information from the last draw
-      glClearColor(0.f, 0.f, 0.f, 1.f);
+      // glClearColor(0.f, 0.f, 0.f, 1.f);
+      glClearColor(0.1f, 0.2f, 0.3f, 1.f);
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
       // move light with camera
@@ -1534,7 +1541,8 @@ void DynfuApp::renderMeshWin1()
     else
     {
       // clear information from the last draw
-      glClearColor(0.f, 0.f, 0.f, 1.f);
+      // glClearColor(0.f, 0.f, 0.f, 1.f);
+      glClearColor(0.1f, 0.2f, 0.3f, 1.f);
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
       glutSwapBuffers();
@@ -1566,7 +1574,8 @@ void DynfuApp::renderTexWin()
 
     dst_tex_bridge_.unmap();
 
-    glClearColor(0.f, 0.f, 0.f, 1.f);
+    // glClearColor(0.f, 0.f, 0.f, 1.f);
+    glClearColor(0.1f, 0.2f, 0.3f, 1.f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     this->drawTexture(dst_texture_);
@@ -1576,7 +1585,6 @@ void DynfuApp::renderTexWin()
 void DynfuApp::drawMesh(int win_num)
 {
   glEnableClientState(GL_VERTEX_ARRAY);
-  glEnableClientState(GL_NORMAL_ARRAY);
 
   // mesh representation
   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -1587,8 +1595,12 @@ void DynfuApp::drawMesh(int win_num)
     glBindBuffer(GL_ARRAY_BUFFER, mesh0_vertex_array_.getVbo());
     glVertexPointer(4, GL_FLOAT, 0, 0);
 
-    glBindBuffer(GL_ARRAY_BUFFER, mesh0_normal_array_.getVbo());
-    glNormalPointer(GL_FLOAT, sizeof(float)*4, 0);
+    if (tex_mode_ == TEX_NONE)
+    {
+      glEnableClientState(GL_NORMAL_ARRAY);
+      glBindBuffer(GL_ARRAY_BUFFER, mesh0_normal_array_.getVbo());
+      glNormalPointer(GL_FLOAT, sizeof(float)*4, 0);
+    }
 
     // set color buffer
     if (tex_mode_ != TEX_NONE)
@@ -1606,8 +1618,12 @@ void DynfuApp::drawMesh(int win_num)
     glBindBuffer(GL_ARRAY_BUFFER, mesh1_vertex_array_.getVbo());
     glVertexPointer(4, GL_FLOAT, 0, 0);
 
-    glBindBuffer(GL_ARRAY_BUFFER, mesh1_normal_array_.getVbo());
-    glNormalPointer(GL_FLOAT, sizeof(float)*4, 0);
+    if (tex_mode_ == TEX_NONE)
+    {
+      glEnableClientState(GL_NORMAL_ARRAY);
+      glBindBuffer(GL_ARRAY_BUFFER, mesh0_normal_array_.getVbo());
+      glNormalPointer(GL_FLOAT, sizeof(float)*4, 0);
+    }
 
     // set color buffer
     if (tex_mode_ != TEX_NONE)
